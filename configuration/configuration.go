@@ -90,6 +90,10 @@ const (
 	// to determine mode.
 	ModeEnv = "MODE"
 
+	// PruneEnv is the environment variable read
+	// to determine if prune process must be enabled.
+	PruneEnv = "PRUNE"
+
 	// NetworkEnv is the environment variable
 	// read to determine network.
 	NetworkEnv = "NETWORK"
@@ -103,6 +107,7 @@ const (
 // PruningConfiguration is the configuration to
 // use for pruning in the indexer.
 type PruningConfiguration struct {
+	Enabled   bool
 	Frequency time.Duration
 	Depth     int64
 	MinHeight int64
@@ -128,7 +133,14 @@ type Configuration struct {
 // using the ENVs in the environment.
 func LoadConfiguration(baseDirectory string) (*Configuration, error) {
 	config := &Configuration{}
+
+	enablePrune := true
+	if os.Getenv(PruneEnv) == "FALSE" {
+		enablePrune = false
+	}
+
 	config.Pruning = &PruningConfiguration{
+		Enabled:   enablePrune,
 		Frequency: pruneFrequency,
 		Depth:     pruneDepth,
 		MinHeight: minPruneHeight,

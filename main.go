@@ -104,9 +104,11 @@ func startOnlineDependencies(
 		return i.Sync(ctx)
 	})
 
-	g.Go(func() error {
-		return i.Prune(ctx)
-	})
+	if cfg.Pruning.Enabled {
+		g.Go(func() error {
+			return i.Prune(ctx)
+		})
+	}
 
 	return client, i, nil
 }

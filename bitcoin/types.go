@@ -15,6 +15,7 @@
 package bitcoin
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -344,6 +345,29 @@ type responseError struct {
 type blockResponse struct {
 	Result *Block         `json:"result"`
 	Error  *responseError `json:"error"`
+}
+
+// BlockResponse is the response body for `getblock` requests
+type rawBlockResponse struct {
+	Result *json.RawMessage `json:"result"`
+	Error  *responseError   `json:"error"`
+}
+
+func (b rawBlockResponse) Err() error {
+	if b.Error == nil {
+		return nil
+	}
+
+	if b.Error.Code == blockNotFoundErrCode {
+		return ErrBlockNotFound
+	}
+
+	return fmt.Errorf(
+		"%w: error JSON RPC response, code: %d, message: %s",
+		ErrJSONRPCError,
+		b.Error.Code,
+		b.Error.Message,
+	)
 }
 
 func (b blockResponse) Err() error {

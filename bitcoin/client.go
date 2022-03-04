@@ -377,6 +377,30 @@ func (b *Client) getBlock(
 	return response.Result, nil
 }
 
+// getBlock returns a Block for the specified identifier as a raw json
+func (b *Client) GetJSONRawBlock(
+	ctx context.Context,
+	identifier *types.PartialBlockIdentifier,
+) (*json.RawMessage, error) {
+	hash, err := b.getBlockHash(ctx, identifier)
+	if err != nil {
+		return nil, fmt.Errorf("%w: error getting block hash by identifier", err)
+	}
+
+	// Parameters:
+	//   1. Block hash (string, required)
+	//   2. Verbosity (integer, optional, default=1)
+	// https://bitcoin.org/en/developer-reference#getblock
+	params := []interface{}{hash, blockVerbosity}
+
+	response := &rawBlockResponse{}
+	if err := b.post(ctx, requestMethodGetBlock, params, response); err != nil {
+		return nil, fmt.Errorf("%w: error fetching block by hash %s", err, hash)
+	}
+
+	return response.Result, nil
+}
+
 // getBlockchainInfo performs the `getblockchaininfo` JSON-RPC request
 func (b *Client) getBlockchainInfo(
 	ctx context.Context,

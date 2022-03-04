@@ -103,9 +103,9 @@ const (
 	// implementation.
 	PortEnv = "PORT"
 
-	RpcUsernameEnv = "RPCUSERNAME"
+	RpcUsernameEnv = "RPC_USERNAME"
 
-	RpcPasswordEnv = "RPCPASSWORD"
+	RpcPasswordEnv = "RPC_PASSWORD"
 )
 
 // PruningConfiguration is the configuration to

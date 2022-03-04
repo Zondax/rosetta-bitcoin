@@ -23,8 +23,11 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
+
+	"github.com/coinbase/rosetta-bitcoin/configuration"
 
 	bitcoinUtils "github.com/coinbase/rosetta-bitcoin/utils"
 
@@ -827,8 +830,17 @@ func (b *Client) post(
 		return fmt.Errorf("%w: error constructing request", err)
 	}
 
+	username := rpcUsername
+	password := rpcPassword
+	if os.Getenv(configuration.RpcUsernameEnv) != "" {
+		username = os.Getenv(configuration.RpcUsernameEnv)
+	}
+	if os.Getenv(configuration.RpcPasswordEnv) != "" {
+		password = os.Getenv(configuration.RpcPasswordEnv)
+	}
+
 	req.Header.Set("Content-Type", "application/json")
-	req.SetBasicAuth(rpcUsername, rpcPassword)
+	req.SetBasicAuth(username, password)
 
 	// Perform the post request
 	res, err := b.httpClient.Do(req.WithContext(ctx))

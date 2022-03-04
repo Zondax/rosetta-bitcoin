@@ -102,6 +102,10 @@ const (
 	// read to determine the port for the Rosetta
 	// implementation.
 	PortEnv = "PORT"
+
+	RpcUsernameEnv = "RPCUSERNAME"
+
+	RpcPasswordEnv = "RPCPASSWORD"
 )
 
 // PruningConfiguration is the configuration to

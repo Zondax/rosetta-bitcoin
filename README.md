@@ -7,11 +7,11 @@
    Rosetta Bitcoin
 </h3>
 <p align="center">
-  <a href="https://circleci.com/gh/coinbase/rosetta-bitcoin/tree/master"><img src="https://circleci.com/gh/coinbase/rosetta-bitcoin/tree/master.svg?style=shield" /></a>
-  <a href="https://coveralls.io/github/coinbase/rosetta-bitcoin"><img src="https://coveralls.io/repos/github/coinbase/rosetta-bitcoin/badge.svg" /></a>
-  <a href="https://goreportcard.com/report/github.com/coinbase/rosetta-bitcoin"><img src="https://goreportcard.com/badge/github.com/coinbase/rosetta-bitcoin" /></a>
-  <a href="https://github.com/coinbase/rosetta-bitcoin/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/coinbase/rosetta-bitcoin.svg" /></a>
-  <a href="https://pkg.go.dev/github.com/coinbase/rosetta-bitcoin?tab=overview"><img src="https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=shield" /></a>
+  <a href="https://circleci.com/gh/zondax/rosetta-bitcoin/tree/master"><img src="https://circleci.com/gh/zondax/rosetta-bitcoin/tree/master.svg?style=shield" /></a>
+  <a href="https://coveralls.io/github/zondax/rosetta-bitcoin"><img src="https://coveralls.io/repos/github/zondax/rosetta-bitcoin/badge.svg" /></a>
+  <a href="https://goreportcard.com/report/github.com/zondax/rosetta-bitcoin"><img src="https://goreportcard.com/badge/github.com/zondax/rosetta-bitcoin" /></a>
+  <a href="https://github.com/zondax/rosetta-bitcoin/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/zondax/rosetta-bitcoin.svg" /></a>
+  <a href="https://pkg.go.dev/github.com/zondax/rosetta-bitcoin?tab=overview"><img src="https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=shield" /></a>
 </p>
 
 <p align="center"><b>
@@ -71,7 +71,7 @@ Running the following commands will create a Docker image called `rosetta-bitcoi
 #### From GitHub
 To download the pre-built Docker image from the latest release, run:
 ```text
-curl -sSfL https://raw.githubusercontent.com/coinbase/rosetta-bitcoin/master/install.sh | sh -s
+curl -sSfL https://raw.githubusercontent.com/zondax/rosetta-bitcoin/master/install.sh | sh -s
 ```
 _Do not try to install rosetta-bitcoin using GitHub Packages!_
 
@@ -143,7 +143,7 @@ and run one of the following commands:
 * `rosetta-cli check:data --configuration-file rosetta-cli-conf/mainnet/config.json` - This command validates that the Data API information in the `mainnet` network is correct. It also ensures that the implementation does not miss any balance-changing operations.
 
 ## Issues
-Interested in helping fix issues in this repository? You can find to-dos in the [Issues](https://github.com/coinbase/rosetta-bitcoin/issues) section with the `help wanted` tag. Be sure to reach out on our [community](https://community.rosetta-api.org) before you tackle anything on this list.
+Interested in helping fix issues in this repository? You can find to-dos in the [Issues](https://github.com/zondax/rosetta-bitcoin/issues) section with the `help wanted` tag. Be sure to reach out on our [community](https://community.rosetta-api.org) before you tackle anything on this list.
 
 
 ## Development

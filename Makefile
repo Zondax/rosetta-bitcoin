@@ -24,7 +24,7 @@ deps:
 	go get ./...
 
 build:
-	docker build -t rosetta-bitcoin:latest https://github.com/coinbase/rosetta-bitcoin.git
+	docker build -t rosetta-bitcoin:latest https://github.com/zondax/rosetta-bitcoin.git
 
 build-local:
 	docker build -t rosetta-bitcoin:latest .

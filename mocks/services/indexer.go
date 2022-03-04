@@ -5,7 +5,7 @@ package services
 import (
 	context "context"
 
-	bitcoin "github.com/coinbase/rosetta-bitcoin/bitcoin"
+	bitcoin "github.com/zondax/rosetta-bitcoin/bitcoin"
 
 	mock "github.com/stretchr/testify/mock"
 

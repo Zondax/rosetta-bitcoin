@@ -27,8 +27,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/coinbase/rosetta-bitcoin/configuration"
-
 	bitcoinUtils "github.com/coinbase/rosetta-bitcoin/utils"
 
 	"github.com/btcsuite/btcutil"
@@ -94,6 +92,10 @@ const (
 	// timeMultiplier is used to multiply the time
 	// returned in Bitcoin blocks to be milliseconds.
 	timeMultiplier = 1000
+
+	RpcUsernameEnv = "RPC_USERNAME"
+
+	RpcPasswordEnv = "RPC_PASSWORD"
 
 	// rpc credentials are fixed in rosetta-bitcoin
 	// because we never expose access to the raw bitcoind
@@ -832,11 +834,11 @@ func (b *Client) post(
 
 	username := rpcUsername
 	password := rpcPassword
-	if os.Getenv(configuration.RpcUsernameEnv) != "" {
-		username = os.Getenv(configuration.RpcUsernameEnv)
+	if os.Getenv(RpcUsernameEnv) != "" {
+		username = os.Getenv(RpcUsernameEnv)
 	}
-	if os.Getenv(configuration.RpcPasswordEnv) != "" {
-		password = os.Getenv(configuration.RpcPasswordEnv)
+	if os.Getenv(RpcPasswordEnv) != "" {
+		password = os.Getenv(RpcPasswordEnv)
 	}
 
 	req.Header.Set("Content-Type", "application/json")

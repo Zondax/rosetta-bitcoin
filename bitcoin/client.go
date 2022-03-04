@@ -23,7 +23,6 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
@@ -92,17 +91,6 @@ const (
 	// timeMultiplier is used to multiply the time
 	// returned in Bitcoin blocks to be milliseconds.
 	timeMultiplier = 1000
-
-	RpcUsernameEnv = "RPC_USERNAME"
-
-	RpcPasswordEnv = "RPC_PASSWORD"
-
-	// rpc credentials are fixed in rosetta-bitcoin
-	// because we never expose access to the raw bitcoind
-	// endpoints (that could be used perform an attack, like
-	// changing our peers).
-	rpcUsername = "rosetta"
-	rpcPassword = "rosetta"
 )
 
 var (
@@ -123,6 +111,9 @@ var (
 type Client struct {
 	baseURL string
 
+	username string
+	password string
+
 	genesisBlockIdentifier *types.BlockIdentifier
 	currency               *types.Currency
 
@@ -140,12 +131,16 @@ func NewClient(
 	baseURL string,
 	genesisBlockIdentifier *types.BlockIdentifier,
 	currency *types.Currency,
+	username string,
+	password string,
 ) *Client {
 	return &Client{
 		baseURL:                baseURL,
 		genesisBlockIdentifier: genesisBlockIdentifier,
 		currency:               currency,
 		httpClient:             newHTTPClient(defaultTimeout),
+		username:               username,
+		password:               password,
 	}
 }
 
@@ -856,17 +851,8 @@ func (b *Client) post(
 		return fmt.Errorf("%w: error constructing request", err)
 	}
 
-	username := rpcUsername
-	password := rpcPassword
-	if os.Getenv(RpcUsernameEnv) != "" {
-		username = os.Getenv(RpcUsernameEnv)
-	}
-	if os.Getenv(RpcPasswordEnv) != "" {
-		password = os.Getenv(RpcPasswordEnv)
-	}
-
 	req.Header.Set("Content-Type", "application/json")
-	req.SetBasicAuth(username, password)
+	req.SetBasicAuth(b.username, b.password)
 
 	// Perform the post request
 	res, err := b.httpClient.Do(req.WithContext(ctx))

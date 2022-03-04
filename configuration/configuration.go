@@ -102,6 +102,17 @@ const (
 	// read to determine the port for the Rosetta
 	// implementation.
 	PortEnv = "PORT"
+
+	RpcUsernameEnv = "RPC_USERNAME"
+
+	RpcPasswordEnv = "RPC_PASSWORD"
+
+	// rpc credentials are fixed in rosetta-bitcoin
+	// because we never expose access to the raw bitcoind
+	// endpoints (that could be used perform an attack, like
+	// changing our peers).
+	rpcUsername = "rosetta"
+	rpcPassword = "rosetta"
 )
 
 // PruningConfiguration is the configuration to
@@ -127,6 +138,8 @@ type Configuration struct {
 	IndexerPath            string
 	BitcoindPath           string
 	Compressors            []*encoder.CompressorEntry
+	Username               string
+	Password               string
 }
 
 // LoadConfiguration attempts to create a new Configuration
@@ -137,6 +150,15 @@ func LoadConfiguration(baseDirectory string) (*Configuration, error) {
 	enablePrune := true
 	if os.Getenv(PruneEnv) == "FALSE" {
 		enablePrune = false
+	}
+
+	config.Username = rpcUsername
+	config.Password = rpcPassword
+	if os.Getenv(RpcUsernameEnv) != "" {
+		config.Username = os.Getenv(RpcUsernameEnv)
+	}
+	if os.Getenv(RpcPasswordEnv) != "" {
+		config.Password = os.Getenv(RpcPasswordEnv)
 	}
 
 	config.Pruning = &PruningConfiguration{

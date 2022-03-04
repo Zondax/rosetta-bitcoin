@@ -84,6 +84,8 @@ func startOnlineDependencies(
 		bitcoin.LocalhostURL(cfg.RPCPort),
 		cfg.GenesisBlockIdentifier,
 		cfg.Currency,
+		cfg.Username,
+		cfg.Password,
 	)
 
 	g.Go(func() error {
